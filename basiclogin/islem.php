@@ -3,7 +3,8 @@ include 'helper.php';
 error_reporting(E_ALL);
 session_start();
 $user= [
-    'gokceeliif' => '123456'
+    'gokceeliif' => '123456',
+    'benelif' => 'selam'
 ];
 
 if(get('islem')== 'login'){
@@ -26,10 +27,13 @@ if(get('islem')== 'login'){
         if(array_key_exists(post('username'),$user)){
 
             if($user[post('username')]==post('password')){
+                
                 $_SESSION['login']=true;
                 $_SESSION['username']=post('username');
                 $_SESSION['password']=post('password');
-                
+                if(!file_exists('./db/'.session('username').'.txt')){
+                    touch('./db/'.session('username').'.txt');
+                }
                 header('Location:home.php');
                 exit();
 
